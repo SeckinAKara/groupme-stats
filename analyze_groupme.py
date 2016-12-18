@@ -43,10 +43,6 @@ for number, message in enumerate(messages): #makes each timestamp into a datetim
 
     messages[number][1] = datetime.datetime(year, month, day, hour, minutes)
 
-
-#list of nicknames for people who have changed names
-#nicknames = [('Ricardo Luis Rojas Estrada', [u'The Dope Pope\u2627', 'His Stickiness, the Bishop of Ganja, the Dope Pope', 'Goku']),('Collin Warren',['Your Channel 4 Anchorman, Ron Burgundy', 'Your Channel 11 Anchorman, Ron Burgundy']),('Harry',['General Harry Debatesky', 'Harrykim but not related to kimjongun', 'Anchorman Harry Freakoutson Jones']),('Kyle Dulski',['Hugh Mungus', 'Pepe']),('Dino',['Adrianne Kubiak'])]
-
 nicknames = []
 for line in entire_log:
     if '(SYS)' in line[:6] and 'changed name to' in line:
@@ -58,9 +54,6 @@ for line in entire_log:
                 break
         else:
             nicknames.append((changes[0], [changes[1].strip()]))
-
-nicknames[0] = (u'Dino', [u'Adrianne Kubiak'])
-nicknames[3] = (u'Harry', [u'Harrykim but not related to kimjongun', u'Anchorman Harry Freakoutson Jones', u'General Harry Debatesky'])
 
 for number, message in enumerate(messages): #replaces all nicknames with original name in message info
     for name in nicknames:
