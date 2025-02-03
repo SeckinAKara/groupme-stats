@@ -72,8 +72,6 @@ for message in messages: #list of all names who have sent messages
     if message[0] not in all_names:
     	all_names.append(message[0])
 
-curse_words = ['fuck', 'shit', ' ass', 'damn', ' hell', 'cunt', 'bitch', 'dick']
-
 all_words = [] #just adds all messages into one long list of words
 for message in messages:
     for word in message[2].split(' '):
@@ -121,35 +119,6 @@ for person in all_names: #removes inactive people because sample bias
     if message_number_per_person[person] < 100:
         sorted_message_length_per_person.remove(person)
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#~~~~~~~~~~CURSE WORD SECTION~~~~~~~~~~~~~~~~
-
-curse_messages = [] #list of all messages containing a curse word
-for message in messages:
-    for word in curse_words:
-        if word in message[2].lower():
-            curse_messages.append(message)
-            break
-
-percentage_curse_words = round(float(len(curse_messages))/float(total_messages),4)*100
-
-curse_messages_per_person = {} #finds number of messages with curse per person
-for name in all_names:
-    curse_messages_per_person[name] = 0
-for message in curse_messages:
-    curse_messages_per_person[message[0]] += 1
-
-curse_percentages_per_person = {} #finds percentage of each person's messages with curse
-for name in all_names:
-    curse_percentages_per_person[name] = 0
-for name in curse_messages_per_person:
-    curse_percentages_per_person[name] = round(float(curse_messages_per_person[name])/float(message_number_per_person[name]), 4)*100
-
-sorted_curse_percentages_per_person = sorted(curse_percentages_per_person, key=lambda x: curse_percentages_per_person[x])[::-1]
-
-for person in all_names: #removes inactive people because sample bias
-    if message_number_per_person[person] < 100:
-        sorted_curse_percentages_per_person.remove(person)
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -245,12 +214,6 @@ for person in sorted_summons_percentages_per_person[:10]:
     print '\t' + str(n) + ') ' + person + ': ' + str(summons_per_person[person]) + ' summons'
     n += 1
 print '\n'
-print 'Percentage of messages containing curse words: ' + str(percentage_curse_words) + '%'
-print 'Top 10 most foul-mouthed members:'
-n = 1
-for person in sorted_curse_percentages_per_person[:10]:
-    print '\t' + str(n) + ') ' + person + ': ' + str(curse_percentages_per_person[person]) + '% of messages'
-    n += 1
 print '\n'
 print 'Most active day: ' + str(most_active_day[0]) + ' (' + str(most_active_day[1]) + ' messages)'
 print 'Longest time between consecutive messages: ' + str(longest_time)
